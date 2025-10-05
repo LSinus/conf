@@ -48,14 +48,14 @@ vnoremap ∆ :m '>+1<CR>gv=gv
 vnoremap ˚ :m '<-2<CR>gv=gv
 
 " LINUX and Windows
-nnoremap <Alt-j> :m .+1<CR>==
-nnoremap <Alt-k> :m .-2<CR>==
+nnoremap <A-j> :m .+1<CR>==
+nnoremap <A-k> :m .-2<CR>==
 
-inoremap <Alt-j> <Esc>:m .+1<CR>==gi
-inoremap <Alt-k> <Esc>:m .-2<CR>==gi
+inoremap <A-j> <Esc>:m .+1<CR>==gi
+inoremap <A-k> <Esc>:m .-2<CR>==gi
 
-vnoremap <Alt-j> :m '>+1<CR>gv=gv
-vnoremap <Alt-k> :m '<-2<CR>gv=gv
+vnoremap <A-j> :m '>+1<CR>gv=gv
+vnoremap <A-k> :m '<-2<CR>gv=gv
 
 " Always show the statusline
 set laststatus=2
