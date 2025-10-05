@@ -22,6 +22,11 @@ vnoremap jk <Esc>
 nnoremap <Space> ^
 nnoremap Y y$
 
+" Visual mode indentation keeping highlighted
+vnoremap > >gv
+vnoremap < <gv
+
+
 " move lines up % down
 " IT layout
 nnoremap ª :m .+1<CR>==
