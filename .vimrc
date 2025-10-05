@@ -52,4 +52,57 @@ inoremap <Alt-k> <Esc>:m .-2<CR>==gi
 vnoremap <Alt-j> :m '>+1<CR>gv=gv
 vnoremap <Alt-k> :m '<-2<CR>gv=gv
 
+" Always show the statusline
+set laststatus=2
+set noshowmode            " We'll show mode ourselves
+
+" --- Get readable mode name ---
+function! ModeName()
+  let l:m = mode()
+  return l:m ==# 'n'  ? 'NORMAL' :
+        \ l:m ==# 'i'  ? 'INSERT' :
+        \ l:m ==# 'R'  ? 'REPLACE' :
+        \ l:m ==# 'v'  ? 'VISUAL' :
+        \ l:m ==# 'V'  ? 'V-LINE' :
+        \ l:m ==# "\<C-v>" ? 'V-BLOCK' :
+        \ l:m ==# 'c'  ? 'COMMAND' :
+        \ 'OTHER'
+endfunction
+
+" --- Human-readable file size ---
+function! FileSize()
+  let bytes = getfsize(expand('%'))
+  if bytes < 0
+    return ''
+  elseif bytes < 1024
+    return bytes . 'B'
+  elseif bytes < 1024*1024
+    return printf('%.1fK', bytes / 1024.0)
+  elseif bytes < 1024*1024*1024
+    return printf('%.1fM', bytes / 1024.0 / 1024.0)
+  else
+    return printf('%.1fG', bytes / 1024.0 / 1024.0 / 1024.0)
+  endif
+endfunction
+
+" --- Git branch detection without plugins ---
+function! GitBranch()
+  if !isdirectory('.git')
+    " Try to find .git directory upward
+    let l:gitdir = finddir('.git', '.;')
+    if empty(l:gitdir)
+      return ''
+    endif
+  endif
+  let l:branch = system('git rev-parse --abbrev-ref HEAD 2>/dev/null')
+  return v:shell_error ? '' : ' ' . substitute(l:branch, '\n', '', '')
+endfunction
+
+" --- Statusline configuration ---
+set statusline=
+set statusline+=%#PmenuSel#%{ModeName()}%#Normal#\    " Mode
+set statusline+=%f\                                    " File name + path
+set statusline+=[%{FileSize()}]                        " File size
+set statusline+=%=%#StatusLine#                        " Align right
+set statusline+=%l:%c\ %p%%                            " Cursor pos + progress
 
