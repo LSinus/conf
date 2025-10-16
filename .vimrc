@@ -2,6 +2,9 @@ set number
 set relativenumber
 set cursorline
 set tabstop=4
+set softtabstop=4
+set shiftwidth=4
+set expandtab
 set nowrap
 syntax on
 
@@ -26,6 +29,10 @@ nnoremap Y y$
 vnoremap > >gv
 vnoremap < <gv
 
+" Normal mode buffers commands"
+map gn :bnext<cr>
+map gp :bprevious<cr>
+map gd :bdelete<cr>
 
 " move lines up % down
 " IT layout
@@ -111,3 +118,5 @@ set statusline+=[%{FileSize()}]                        " File size
 set statusline+=%=%#StatusLine#                        " Align right
 set statusline+=%l:%c\ %p%%                            " Cursor pos + progress
 
+" --- Auto Indentation ---
+filetype plugin indent on
